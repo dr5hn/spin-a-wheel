@@ -8,11 +8,11 @@ var gameOptions = {
 
     // prize names, starting from 12 o'clock going clockwise
     slicePrizes: [
-        "🎉 5% OFF", 
-        "🎉 10% OFF", 
-        "🎉 15% OFF", 
-        "🎉 25% OFF", 
-        "🎉 50% OFF", 
+        "🎉 5% OFF",
+        "🎉 10% OFF",
+        "🎉 15% OFF",
+        "🎉 25% OFF",
+        "🎉 50% OFF",
         "🎉 FREE PASTRY 🍰"
     ],
 
@@ -21,25 +21,25 @@ var gameOptions = {
 }
 
 // once the window loads...
-window.onload = function() {
+window.onload = function () {
 
     // game configuration object
     var gameConfig = {
 
         // render type
-       type: Phaser.CANVAS,
+        type: Phaser.CANVAS,
 
-       // game width, in pixels
-       width: 850,
+        // game width, in pixels
+        width: 850,
 
-       // game height, in pixels
-       height: 850,
+        // game height, in pixels
+        height: 850,
 
-       // game background color
-       backgroundColor: 0x880044,
+        // game background color
+        backgroundColor: 0x880044,
 
-       // scenes used by the game
-       scene: [playGame]
+        // scenes used by the game
+        scene: [playGame]
     };
 
     // game constructor
@@ -52,21 +52,22 @@ window.onload = function() {
 }
 
 // PlayGame scene
-class playGame extends Phaser.Scene{
+class playGame extends Phaser.Scene {
 
     // constructor
-    constructor(){
+    constructor() {
         super("PlayGame");
     }
 
     // method to be executed when the scene preloads
-    preload(){ // loading assets
-        this.load.image("wheel", "../images/wheel.png");
-        this.load.image("pin", "../images/pin.png");
+    preload() { // loading assets
+
+        this.load.image("wheel", window.location.href + "images/wheel.png");
+        this.load.image("pin", window.location.href + "images/pin.png");
     }
 
     // method to be executed once the scene has been created
-    create(){
+    create() {
 
         // adding the wheel in the middle of the canvas
         this.wheel = this.add.sprite(game.config.width / 2, game.config.height / 2, "wheel");
@@ -92,10 +93,10 @@ class playGame extends Phaser.Scene{
     }
 
     // function to spin the wheel
-    spinWheel(){
+    spinWheel() {
 
         // can we spin the wheel?
-        if(this.canSpin){
+        if (this.canSpin) {
 
             // resetting text field
             this.prizeText.setText("");
@@ -132,9 +133,7 @@ class playGame extends Phaser.Scene{
                 callbackScope: this,
 
                 // function to be executed once the tween has been completed
-                onComplete: function(tween){
-                    console.info(tween);
-
+                onComplete: function (tween) {
                     // displaying prize text
                     this.prizeText.setText(gameOptions.slicePrizes[prize]);
 
@@ -153,11 +152,11 @@ function resize() {
     var windowHeight = window.innerHeight;
     var windowRatio = windowWidth / windowHeight;
     var gameRatio = game.config.width / game.config.height;
-    if(windowRatio < gameRatio){
+    if (windowRatio < gameRatio) {
         canvas.style.width = windowWidth + "px";
         canvas.style.height = (windowWidth / gameRatio) + "px";
     }
-    else{
+    else {
         canvas.style.width = (windowHeight * gameRatio) + "px";
         canvas.style.height = windowHeight + "px";
     }
